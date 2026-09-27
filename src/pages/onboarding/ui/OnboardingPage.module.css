@@ -1,0 +1,39 @@
+.page {
+  min-height: 100dvh;
+  padding-bottom: 32px;
+  background: var(--gradient-primary) top / 100% 280px no-repeat;
+}
+
+.hero {
+  padding: 48px 24px 72px;
+  color: #fff;
+  text-align: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.slogan {
+  margin: 8px auto 0;
+  max-width: 300px;
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+.card {
+  margin: -48px 16px 0;
+  padding: 24px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 800;
+}
