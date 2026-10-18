@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   fetchCandidates,
   getCommonInterests,
@@ -11,9 +12,16 @@ import {
   swipeHistoryCleared,
 } from '@/entities/profile'
 import { selectUser } from '@/entities/user'
-import { SwipeActions, SwipeableCard, swipeProfile, type SwipeableCardHandle, type SwipeDirection } from '@/features/swipe-profile'
+import {
+  SwipeActions,
+  SwipeableCard,
+  swipeProfile,
+  type SwipeableCardHandle,
+  type SwipeDirection,
+} from '@/features/swipe-profile'
+import { ROUTES } from '@/shared/config'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/store'
-import { Button, Spinner } from '@/shared/ui'
+import { Button, InfoIcon, Spinner } from '@/shared/ui'
 import styles from './SwipeDeck.module.css'
 
 const KEY_TO_DIRECTION: Record<string, SwipeDirection> = {
@@ -26,6 +34,7 @@ const NO_INTERESTS: string[] = []
 
 export const SwipeDeck = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const user = useAppSelector(selectUser)
   const candidates = useAppSelector(selectCandidates)
   const status = useAppSelector(selectCandidatesStatus)
@@ -46,14 +55,22 @@ export const SwipeDeck = () => {
   useEffect(() => {
     if (!top) return
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return
+
+      if (event.key === 'i' || event.key === 'и') {
+        event.preventDefault()
+        navigate(ROUTES.feedProfile(top.id))
+        return
+      }
+
       const direction = KEY_TO_DIRECTION[event.key]
-      if (!direction || event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return
+      if (!direction) return
       event.preventDefault()
       cardRef.current?.swipe(direction)
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [top])
+  }, [navigate, top])
 
   const handleSwiped = useCallback(
     (direction: SwipeDirection) => {
@@ -107,6 +124,16 @@ export const SwipeDeck = () => {
             compatibility={getCompatibility(myInterests, top.interests, pairKey(top.id))}
             commonInterests={getCommonInterests(myInterests, top.interests)}
           />
+          <button
+            type="button"
+            className={styles.details}
+            aria-label="Подробнее"
+            title="Подробнее об анкете (i)"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => navigate(ROUTES.feedProfile(top.id))}
+          >
+            <InfoIcon size={24} />
+          </button>
         </SwipeableCard>
       </>
     )

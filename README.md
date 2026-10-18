@@ -22,10 +22,13 @@ npm run lint
 - Процент совместимости по интересам, общие интересы подсвечены
 - Мэтч, если симпатия взаимная → модалка «Это мэтч!»
 - Список мэтчей и диалогов, чат с подсказками для первого сообщения и эмуляцией ответа («печатает…»)
+- Анкета собеседника из чата: клик по участнику в шапке → фото, описание, интересы, совместимость
 - Редактирование профиля, удаление мэтча, выход
 - Состояние сохраняется в `localStorage`
 
 Бэкенда нет: данные анкет — моки в `entities/profile/api`, сетевые задержки эмулирует `shared/api/mockRequest`.
+
+Спецификации задач — в `specs/<feature>/` (spec.md + tasks.md).
 
 ## Структура (FSD)
 
@@ -35,13 +38,14 @@ src/
 │   ├── providers/        #   StoreProvider, AppRouter, AuthGuard/GuestGuard
 │   ├── store/            #   configureStore + persist в localStorage
 │   └── types/global.d.ts #   глобальные RootState / AppDispatch
-├── pages/                # onboarding, feed, matches, chat, profile, not-found
+├── pages/                # onboarding, feed, matches, chat, match-profile, profile, not-found
 ├── widgets/              # самостоятельные блоки страниц
 │   ├── layout/           #   шапка + нижняя навигация
 │   ├── swipe-deck/       #   колода карточек + кнопки действий
 │   ├── match-modal/      #   «Это мэтч!»
 │   ├── matches-list/     #   новые мэтчи и диалоги
-│   └── chat-window/      #   окно переписки
+│   ├── chat-window/      #   окно переписки
+│   └── match-profile/    #   анкета участника мэтча
 ├── features/             # пользовательские сценарии
 │   ├── auth/             #   создание анкеты (логин)
 │   ├── swipe-profile/    #   свайп: SwipeableCard, SwipeActions, thunk swipeProfile

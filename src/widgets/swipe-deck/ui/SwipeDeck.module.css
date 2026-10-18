@@ -21,6 +21,29 @@
   pointer-events: none;
 }
 
+.details {
+  position: absolute;
+  top: 26px;
+  left: 14px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.35);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.details:hover {
+  transform: scale(1.08);
+  background: rgb(0 0 0 / 0.5);
+}
+
 .placeholder {
   position: absolute;
   inset: 0;

@@ -6,6 +6,8 @@ export {
   swipeHistoryCleared,
   candidatesReset,
   selectCandidates,
+  selectTopCandidate,
+  selectCandidateById,
   selectCandidatesStatus,
   selectCandidatesError,
   selectCandidatesLoadedFor,

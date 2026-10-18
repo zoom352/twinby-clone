@@ -74,6 +74,9 @@ export const candidatesSlice = createSlice({
   },
   selectors: {
     selectCandidates: (state) => state.items,
+    selectTopCandidate: (state) => state.items[0],
+    selectCandidateById: (state, profileId: string) =>
+      state.items.find((profile) => profile.id === profileId),
     selectCandidatesStatus: (state) => state.status,
     selectCandidatesError: (state) => state.error,
     selectCandidatesLoadedFor: (state) => state.loadedFor,
@@ -81,5 +84,11 @@ export const candidatesSlice = createSlice({
 })
 
 export const { candidateSwiped, swipeHistoryCleared, candidatesReset } = candidatesSlice.actions
-export const { selectCandidates, selectCandidatesStatus, selectCandidatesError, selectCandidatesLoadedFor } =
-  candidatesSlice.selectors
+export const {
+  selectCandidates,
+  selectTopCandidate,
+  selectCandidateById,
+  selectCandidatesStatus,
+  selectCandidatesError,
+  selectCandidatesLoadedFor,
+} = candidatesSlice.selectors
