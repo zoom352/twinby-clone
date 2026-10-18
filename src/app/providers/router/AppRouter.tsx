@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ChatPage } from '@/pages/chat'
 import { FeedPage } from '@/pages/feed'
+import { MatchProfilePage } from '@/pages/match-profile'
 import { MatchesPage } from '@/pages/matches'
 import { NotFoundPage } from '@/pages/not-found'
 import { OnboardingPage } from '@/pages/onboarding'
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
     element: (
       <AuthGuard>
         <ChatPage />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: ROUTES.matchProfile(),
+    element: (
+      <AuthGuard>
+        <MatchProfilePage />
       </AuthGuard>
     ),
   },

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { selectMatchById } from '@/entities/match'
 import { MessageBubble, selectIsTyping, selectMessagesByMatch, TypingBubble } from '@/entities/message'
 import { Icebreakers, SendMessageForm } from '@/features/send-message'
@@ -33,13 +33,21 @@ export const ChatWindow = ({ matchId }: { matchId: string }) => {
         <button type="button" className={styles.back} onClick={backToMatches} aria-label="Назад">
           <ArrowLeftIcon />
         </button>
-        <Avatar src={profile.photos[0]} alt={profile.name} size={42} online={profile.online} />
-        <div className={styles.person}>
-          <span className={styles.name}>
-            {profile.name}, {profile.age}
-          </span>
-          <span className={styles.status}>{isTyping ? 'печатает…' : profile.online ? 'онлайн' : 'был(а) недавно'}</span>
-        </div>
+        <Link
+          to={ROUTES.matchProfile(match.id)}
+          className={styles.person}
+          aria-label={`Открыть анкету ${profile.name}`}
+        >
+          <Avatar src={profile.photos[0]} alt={profile.name} size={42} online={profile.online} />
+          <div className={styles.personInfo}>
+            <span className={styles.name}>
+              {profile.name}, {profile.age}
+            </span>
+            <span className={styles.status}>
+              {isTyping ? 'печатает…' : profile.online ? 'онлайн' : 'был(а) недавно'}
+            </span>
+          </div>
+        </Link>
         <UnmatchButton matchId={match.id} name={profile.name} onDone={backToMatches} />
       </header>
 
